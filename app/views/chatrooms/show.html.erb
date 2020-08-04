@@ -1,7 +1,9 @@
-<div class="green">
+<div class="green page-content">
   <h2>Chatroom show page</h2>
 
   <h3><%= link_to "Home page", root_path, class: "green" %></h3>
 
   <h3><%= @chatroom.name %></h3>
+
+  <%= react_component("Comments", { root_with_chatroom_instance: polymorphic_url(@chatroom) }) %>
 </div>

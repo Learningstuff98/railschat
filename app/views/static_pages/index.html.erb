@@ -1,12 +1,13 @@
-<h1 class="green">Homepage</h1>
+<div class="page-content">
+  <h1 class="green">Homepage</h1>
 
-<%= react_component("TestComponent") %>
+  <%= link_to "Start a chatroom", new_chatroom_path, class: "green" %>
 
-<%= link_to "Start a chatroom", new_chatroom_path, class: "green" %>
+  <br/><br/>
 
-<br/><br/>
+  <% @chatrooms.each do |chatroom| %>
+    <h2><%= link_to chatroom.name, chatroom_path(chatroom), class: "green" %></h2>
+    <br/>
+  <% end %>
 
-<% @chatrooms.each do |chatroom| %>
-  <h2><%= link_to chatroom.name, chatroom_path(chatroom), class: "green" %></h2>
-  <br/>
-<% end %>
+</div>

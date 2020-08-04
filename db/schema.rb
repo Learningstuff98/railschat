@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_003024) do
+ActiveRecord::Schema.define(version: 2020_08_04_041652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "chatrooms", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "chatroom_id"
+    t.text "message"
   end
 
 end
