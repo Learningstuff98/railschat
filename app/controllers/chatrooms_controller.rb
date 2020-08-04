@@ -13,6 +13,11 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.find(params[:id])
   end
 
+  def index
+    chatrooms = Chatroom.all
+    render json: chatrooms
+  end
+
   private
 
   def chatroom_params
