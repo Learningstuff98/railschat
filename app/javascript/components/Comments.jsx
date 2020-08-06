@@ -16,7 +16,7 @@ class Comments extends React.Component {
   }
 
   getComments() {
-    axios.get(this.props.root_with_chatroom_instance + '/comments')
+    axios.get(`${this.props.root_with_chatroom_id}/comments`)
     .then((res) => this.setState({ comments: res.data }))
     .catch((err) => console.log(err.response.data));
   }
@@ -24,7 +24,7 @@ class Comments extends React.Component {
   buildCommentForm() {
     return <div>
       <CommentForm
-        root_with_chatroom_instance={this.props.root_with_chatroom_instance}
+        root_with_chatroom_id={this.props.root_with_chatroom_id}
         getComments={this.getComments}
       />
     </div>
