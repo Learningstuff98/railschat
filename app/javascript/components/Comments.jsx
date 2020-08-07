@@ -1,6 +1,7 @@
 import React from "react"
 import CommentForm from './CommentForm'
 import axios from "axios"
+import consumer from "channels/consumer"
 
 class Comments extends React.Component {
   constructor(props) {
@@ -8,11 +9,23 @@ class Comments extends React.Component {
     this.state = {
       comments: []
     };
-    this.getComments = this.getComments.bind(this);
   }
 
   componentDidMount() {
     this.getComments();
+    this.handleWebsocketUpdates(this);
+  }
+
+  handleWebsocketUpdates(commentsComponent) {
+    consumer.subscriptions.create({channel: "ChatroomChannel"}, {
+      received(data) {
+        if(data.comment.chatroom_id === commentsComponent.props.chatroom.id) {
+          let comments = commentsComponent.state.comments;
+          comments.push(data.comment);
+          commentsComponent.setState({ comments, });
+        }
+      }
+    });
   }
 
   getComments() {

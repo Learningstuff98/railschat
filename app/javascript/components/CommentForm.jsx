@@ -5,7 +5,6 @@ class CommentForm extends React.Component {
 
   submitComment(formData) {
     axios.post(`${this.props.root_with_chatroom_id}/comments`, formData)
-    .then(() => this.props.getComments())
     .catch((err) => console.log(err.response.data));
   }
 
