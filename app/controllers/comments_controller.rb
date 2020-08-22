@@ -3,8 +3,8 @@ class CommentsController < ApplicationController
   
   def create
     chatroom = Chatroom.find(params[:chatroom_id])
-    comment = chatroom.comments.create(comment_params)
-    SendCommentJob.perform_later(comment)
+    chatroom.comments.create(comment_params)
+    SendCommentJob.perform_later(chatroom)
   end
 
   def index

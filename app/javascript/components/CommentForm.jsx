@@ -21,7 +21,7 @@ class CommentForm extends React.Component {
   render() {
     return <form onSubmit={(e) => this.handleCommentSubmission(e)}>
       <input type='text' placeholder='Comment...' size="50" ref={(input) => this.commentContent = input}/>
-      <br/>
+      <br/><br/>
       <input type="submit" value="Add comment" className="btn btn-primary make-it-green"/>
     </form>      
   }

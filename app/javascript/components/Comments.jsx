@@ -1,63 +1,53 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import CommentForm from './CommentForm'
 import axios from "axios"
 import consumer from "channels/consumer"
 
-class Comments extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: []
-    };
-  }
+export default function Comments({ root_with_chatroom_id, chatroom }) {
+  const [comments, setComments] = useState([]);
 
-  componentDidMount() {
-    this.getComments();
-    this.handleWebsocketUpdates(this);
-  }
+  useEffect(() => {
+    getComments();
+    handleWebsocketUpdates();
+  }, []);
 
-  handleWebsocketUpdates(commentsComponent) {
+  const handleWebsocketUpdates = () => {
     consumer.subscriptions.create({channel: "ChatroomChannel"}, {
       received(data) {
-        if(data.comment.chatroom_id === commentsComponent.props.chatroom.id) {
-          let comments = commentsComponent.state.comments;
-          comments.push(data.comment);
-          commentsComponent.setState({ comments, });
+        if(data.chatroom.id === chatroom.id) {
+          setComments(data.comments);
         }
       }
     });
-  }
+  };
 
-  getComments() {
-    axios.get(`${this.props.root_with_chatroom_id}/comments`)
-    .then((res) => this.setState({ comments: res.data }))
+  const getComments = () => {
+    axios.get(`${root_with_chatroom_id}/comments`)
+    .then((res) => setComments(res.data))
     .catch((err) => console.log(err.response.data));
-  }
+  };
 
-  buildCommentForm() {
-    return <div>
-      <CommentForm
-        root_with_chatroom_id={this.props.root_with_chatroom_id}
-        getComments={this.getComments}
-      />
-    </div>
-  }
-
-  renderComments() {
-    return this.state.comments.map((comment) => {
+  const renderComments = () => {
+    return comments.map((comment) => {
       return <h3 className="green" key={comment.id}>
         {comment.message}
       </h3>
     });
-  }
+  };
 
-  render() {
+  const buildCommentForm = () => {
     return <div>
-      {this.buildCommentForm()}
-      <br/>
-      {this.renderComments()}
+      <CommentForm
+        root_with_chatroom_id={root_with_chatroom_id}
+        getComments={getComments}
+      />
     </div>
-  }
-}
+  };
 
-export default Comments
+  return <div>
+    <br/><br/>
+    {buildCommentForm()}
+    <br/><br/>
+    {renderComments()}
+  </div>
+}
