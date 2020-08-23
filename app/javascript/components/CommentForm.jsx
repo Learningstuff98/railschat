@@ -1,30 +1,41 @@
-import React from "react"
-import axios from "axios"
+import React, { useState } from "react";
+import axios from "axios";
 
-class CommentForm extends React.Component {
+export default function CommentForm({ root_with_chatroom_id }) {
+  const [input, setInput] = useState('');
 
-  submitComment(formData) {
-    axios.post(`${this.props.root_with_chatroom_id}/comments`, formData)
+  const submitComment = (formData) => {
+    axios.post(`${root_with_chatroom_id}/comments`, formData)
     .catch((err) => console.log(err.response.data));
-  }
+  };
 
-  handleCommentSubmission(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.submitComment({ message: this.commentContent.value });
-    this.clearCommentInputElement();
-  }
+    submitComment({ message: input });
+    setInput('');
+  };
 
-  clearCommentInputElement() {
-    this.commentContent.value = '';
-  }
+  const buildInputButton = () => {
+    return <input
+      type="submit"
+      value="Submit"
+      className="btn btn-primary green"
+    />
+  };
 
-  render() {
-    return <form onSubmit={(e) => this.handleCommentSubmission(e)}>
-      <input type='text' placeholder='Comment...' size="50" ref={(input) => this.commentContent = input}/>
-      <br/><br/>
-      <input type="submit" value="Add comment" className="btn btn-primary make-it-green"/>
-    </form>      
-  }
+  const buildInputElement = () => {
+    return <input
+      type="text"
+      placeholder="Add a comment"
+      size="50"
+      value={input}
+      onChange={e => setInput(e.target.value)}
+    />
+  };
+
+  return <form onSubmit={handleSubmit}>
+    {buildInputElement()}
+    <br/><br/>
+    {buildInputButton()}
+  </form>
 }
-
-export default CommentForm

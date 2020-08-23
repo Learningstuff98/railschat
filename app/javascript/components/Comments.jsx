@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
-import CommentForm from './CommentForm'
-import axios from "axios"
-import consumer from "channels/consumer"
+import React, { useState, useEffect } from "react";
+import CommentForm from './CommentForm';
+import axios from "axios";
+import consumer from "channels/consumer";
 
 export default function Comments({ root_with_chatroom_id, chatroom }) {
   const [comments, setComments] = useState([]);
@@ -29,17 +29,20 @@ export default function Comments({ root_with_chatroom_id, chatroom }) {
 
   const renderComments = () => {
     return comments.map((comment) => {
-      return <h3 className="green" key={comment.id}>
-        {comment.message}
-      </h3>
+      return buildComment(comment);
     });
+  };
+
+  const buildComment = (comment) => {
+    return <h3 className="green" key={comment.id}>
+      {comment.message}
+    </h3>
   };
 
   const buildCommentForm = () => {
     return <div>
       <CommentForm
         root_with_chatroom_id={root_with_chatroom_id}
-        getComments={getComments}
       />
     </div>
   };
