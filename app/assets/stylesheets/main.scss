@@ -11,3 +11,10 @@
 .page-content {
   margin-left: 20px;
 }
+
+@media screen and (max-width: 480px) {
+  h3 {
+    font-size: 50px;
+  }
+}
+ 
