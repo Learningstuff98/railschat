@@ -12,9 +12,13 @@
   margin-left: 20px;
 }
 
-@media screen and (max-width: 1000px) {
-  h3 {
-    font-size: 50px;
-  }
+body {
+  text-rendering: optimizeLegibility;
 }
+
+// @media screen and (max-width: 1000px) {
+//   h3 {
+//     font-size: 50px;
+//   }
+// }
  
