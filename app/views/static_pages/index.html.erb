@@ -1,12 +1,12 @@
 <div class="page-content">
-  <h1 class="green">Homepage</h1>
+  <h3 class="green">Homepage</h3>
 
-  <%= link_to "Start a chatroom", new_chatroom_path, class: "green" %>
+  <h3><%= link_to "Start a chatroom", new_chatroom_path, class: "green" %></h3>
 
   <br/><br/>
 
   <% @chatrooms.each do |chatroom| %>
-    <h2><%= link_to chatroom.name, chatroom_path(chatroom), class: "green" %></h2>
+    <h3><%= link_to chatroom.name, chatroom_path(chatroom), class: "green" %></h3>
     <br/>
   <% end %>
 
