@@ -27,9 +27,11 @@ export default function CommentForm({ root_with_chatroom_id }) {
     return <input
       type="text"
       placeholder="Add a comment"
+      id="input-element"
       size="50"
       value={input}
       onChange={e => setInput(e.target.value)}
+      className="field"
     />
   };
 

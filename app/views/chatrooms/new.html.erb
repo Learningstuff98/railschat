@@ -1,9 +1,12 @@
-<div class="page-content">
+<div class="page-content green">
   <h1>New chatroom page</h1>
+
+  <br/>
 
   <%= simple_form_for @chatroom, url: chatrooms_path do |f| %>
     <%= f.input :name %>
-    <%= f.submit 'Start', class: 'btn btn-primary make-it-green' %>
+    <br/>
+    <%= f.submit 'Start', class: 'btn btn-primary' %>
   <% end %>
 
 </div>
